@@ -1,7 +1,7 @@
 const handleRegister = (req, res, db, bcrypt) => {
     const {name, email, password, confirmation} = req.body;
     if (!name || !email || !password || !confirmation || password !== confirmation) {
-        return res.status(400).json('unable to register');
+        return res.status(400).json('invalid credentials');
     }
         const hash = bcrypt.hashSync(password);
         db.transaction(trx => {
@@ -26,7 +26,7 @@ const handleRegister = (req, res, db, bcrypt) => {
             .then(trx.commit)
             .catch(trx.rollback)
         })
-        .catch(err => res.status(400).json('unable to register'));
+        .catch(err => res.status(400).json(err));
         }
 
 module.exports = {
