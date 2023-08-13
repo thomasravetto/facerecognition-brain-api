@@ -2,10 +2,10 @@ import express, { json } from "express";
 import bcrypt from 'bcrypt-nodejs';
 import cors from "cors";
 import knex from "knex";
-import { handleRegister } from "./routes/register";
-import { handleSignin } from "./routes/signin";
-import { handleProfile } from "./routes/profile";
-import { handleImage, handleApiCall } from "./routes/image";
+import { handleRegister } from "./routes/register.js";
+import { handleSignin } from "./routes/signin.js";
+import { handleProfile } from "./routes/profile.js";
+import { handleImage, handleApiCall } from "./routes/image.js";
 
 const db = knex({
     client: 'pg',
