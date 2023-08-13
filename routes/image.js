@@ -56,4 +56,4 @@ const handleApiCall = (req, res) => {
   .catch(err => res.status(400).json("error calling api"))
 }
 
-export default handleImage; handleApiCall;
+export default {handleImage, handleApiCall}
