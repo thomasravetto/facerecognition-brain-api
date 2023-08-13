@@ -1,11 +1,11 @@
-const express = require("express");
-const bcrypt = require('bcrypt-nodejs');
-const cors = require("cors");
-const knex = require("knex");
-const register = require("./routes/register");
-const signin = require("./routes/signin");
-const profile = require("./routes/profile");
-const image = require("./routes/image");
+import express, { json } from "express";
+import bcrypt from 'bcrypt-nodejs';
+import cors from "cors";
+import knex from "knex";
+import { handleRegister } from "./routes/register";
+import { handleSignin } from "./routes/signin";
+import { handleProfile } from "./routes/profile";
+import { handleImage, handleApiCall } from "./routes/image";
 
 const db = knex({
     client: 'pg',
@@ -24,20 +24,20 @@ const db = knex({
 const PORT = 3500;
 
 const app = express();
-app.use(express.json())
+app.use(json())
 app.use(cors());
 
 app.get("/", (req, res) => {res.send("success")})
 
-app.post("/signin", (req, res) => signin.handleSignin(req, res, db, bcrypt));
+app.post("/signin", (req, res) => handleSignin(req, res, db, bcrypt));
 
-app.post("/register", (req, res) => register.handleRegister(req, res, db, bcrypt));
+app.post("/register", (req, res) => handleRegister(req, res, db, bcrypt));
 
-app.get("/profile/:id", (req, res) => profile.handleProfile(req, res, db));
+app.get("/profile/:id", (req, res) => handleProfile(req, res, db));
 
-app.put("/image", (req, res) => image.handleImage(req, res, db));
+app.put("/image", (req, res) => handleImage(req, res, db));
 
-app.post("/imageurl", (req, res) => image.handleApiCall(req, res));
+app.post("/imageurl", (req, res) => handleApiCall(req, res));
 
 app.listen(PORT, () => {
     console.log("Working on port:", PORT)
