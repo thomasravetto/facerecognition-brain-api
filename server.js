@@ -5,6 +5,7 @@ import knex from "knex";
 import handleRegister from "./routes/register.js";
 import handleSignin from "./routes/signin.js";
 import handleProfile from "./routes/profile.js";
+import fetch from "node-fetch";
 import { handleImage, handleApiCall } from "./routes/image.js";
 
 const db = knex({
@@ -37,7 +38,7 @@ app.get("/profile/:id", (req, res) => handleProfile(req, res, db));
 
 app.put("/image", (req, res) => handleImage(req, res, db));
 
-app.post("/imageurl", (req, res) => handleApiCall(req, res));
+app.post("/imageurl", (req, res) => handleApiCall(req, res, fetch));
 
 app.listen(PORT, () => {
     console.log("Working on port:", PORT)

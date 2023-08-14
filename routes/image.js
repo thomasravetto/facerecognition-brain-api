@@ -9,7 +9,7 @@ const handleImage = (req, res, db) => {
     .catch(err => res.status(400).json("user not found"));
 }
 
-const handleApiCall = (req, res) => {
+const handleApiCall = (req, res, fetch) => {
     // Your PAT (Personal Access Token) can be found in the portal under Authentification
     const PAT = process.env.CLARIFAI_API;
     // Specify the correct user_id/app_id pairings
